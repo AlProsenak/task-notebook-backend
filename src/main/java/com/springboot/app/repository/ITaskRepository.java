@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.springboot.app.model.Task;
 
+import java.util.List;
+
 
 @Repository
 public interface ITaskRepository extends JpaRepository<Task, Long> {
-
+    List<Task> findByCompleted(boolean completed);
 }

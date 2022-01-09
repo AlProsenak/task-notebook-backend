@@ -4,11 +4,13 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
 @Entity
 @Table(name = "tbl_task")
+@NoArgsConstructor
 @ToString
 public class Task {
 
@@ -27,8 +29,18 @@ public class Task {
     private boolean completed;
 
     // CONSTRUCTOR
-    // Empty constructor might get removed.
-    public Task() {
+    public Task(
+            String title,
+            String accountable,
+            LocalDate deadline,
+            String description,
+            boolean completed
+    ) {
+        this.title = title;
+        this.accountable = accountable;
+        this.deadline = deadline;
+        this.description = description;
+        this.completed = completed;
     }
 
     // GETTER and SETTER

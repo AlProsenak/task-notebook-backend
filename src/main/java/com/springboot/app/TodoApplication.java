@@ -10,7 +10,7 @@ public class TodoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TodoApplication.class, args);
 
-		System.out.println("\nApplication successfully started ... \n");
+		System.out.println("\nApplication started successfully ... \n");
 	}
 
 }

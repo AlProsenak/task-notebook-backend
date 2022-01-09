@@ -37,11 +37,50 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/tasks/{id}")
+    public ResponseEntity<Task> getTask(@PathVariable("id") long id) {
+        try {
+            Optional<Task> task = taskRepository.findById(id);
+
+            if (task.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            return new ResponseEntity<>(task.get(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/tasks/completed")
+    public ResponseEntity<List<Task>> getAllCompletedTasks() {
+        try {
+            List<Task> taskList = taskRepository.findByCompleted(true);
+
+            if (taskList.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            else {
+                return new ResponseEntity<>(taskList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // POST
     @PostMapping("/tasks")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@RequestBody Task taskBody) {
         try {
-            Task _task = taskRepository.save(task);
+            Task _task = taskRepository.save(
+                    new Task(
+                        taskBody.getTitle(),
+                        taskBody.getAccountable(),
+                        taskBody.getDeadline(),
+                        taskBody.getDescription(),
+                        false
+                    )
+            );
 
             return new ResponseEntity<>(_task, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -50,12 +89,30 @@ public class TaskController {
     }
 
     // PUT
-    @PutMapping("/tasks")
-    public ResponseEntity<Task> updateTask(@RequestBody Task task) {
+    @PutMapping("/tasks/{id}")
+    public ResponseEntity<Task> updateTask(
+            @PathVariable("id") long id,
+            @RequestBody Task taskBody
+    ) {
         try {
-            Task _task = taskRepository.save(task);
+            Optional<Task> task = taskRepository.findById(id);
 
-            return new ResponseEntity<>(_task, HttpStatus.OK);
+            if (task.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            Task _task = task.get();
+
+            _task.setTitle(taskBody.getTitle());
+            _task.setAccountable(taskBody.getAccountable());
+            _task.setDeadline(taskBody.getDeadline());
+            _task.setDescription(taskBody.getDescription());
+            _task.setCompleted(taskBody.isCompleted());
+
+            return new ResponseEntity<>(
+                    taskRepository.save(_task),
+                    HttpStatus.OK
+            );
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -73,4 +130,19 @@ public class TaskController {
         }
     }
 
+    @DeleteMapping("/tasks/{id}")
+    public ResponseEntity<HttpStatus> deleteTask(@PathVariable("id") long id) {
+        try {
+            Optional<Task> task = taskRepository.findById(id);
+
+            if (task.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            taskRepository.delete(task.get());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
