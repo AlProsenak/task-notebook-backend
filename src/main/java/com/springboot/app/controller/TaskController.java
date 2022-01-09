@@ -39,16 +39,38 @@ public class TaskController {
 
     // POST
     @PostMapping("/tasks")
-    public ResponseEntity<Task> saveTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
         try {
-            return new ResponseEntity<>(taskRepository.save(task), HttpStatus.CREATED);
+            Task _task = taskRepository.save(task);
+
+            return new ResponseEntity<>(_task, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // PUT
+    @PutMapping("/tasks")
+    public ResponseEntity<Task> updateTask(@RequestBody Task task) {
+        try {
+            Task _task = taskRepository.save(task);
+
+            return new ResponseEntity<>(_task, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // DELETE
+    @DeleteMapping("/tasks")
+    public ResponseEntity<HttpStatus> deleteAllTasks() {
+        try {
+            taskRepository.deleteAll();
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
