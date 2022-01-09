@@ -8,5 +8,5 @@ import com.springboot.app.model.Task;
 
 @Repository
 public interface ITaskRepository extends JpaRepository<Task, Long> {
-    
+
 }
