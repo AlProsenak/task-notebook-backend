@@ -145,4 +145,16 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/tasks/completed")
+    public ResponseEntity<HttpStatus> deleteAllCompletedTasks() {
+        try {
+            List<Task> taskList = taskRepository.findByCompleted(true);
+
+            taskRepository.deleteAll(taskList);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
