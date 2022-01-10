@@ -18,12 +18,14 @@ public class Task {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable=false)
     private String title;
 
     private String accountable;
 
     private LocalDate deadline;
 
+    @Column(nullable=false)
     private String description;
 
     private boolean completed;

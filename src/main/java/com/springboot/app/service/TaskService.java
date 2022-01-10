@@ -69,6 +69,15 @@ public class TaskService {
     // POST
     public ResponseEntity<Task> createTask(Task taskBody) {
         try {
+            if (
+                    taskBody.getTitle() == null ||
+                    taskBody.getTitle().length() == 0 ||
+                    taskBody.getDescription() == null ||
+                    taskBody.getDescription().length() == 0
+            ) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            };
+
             Task _task = taskRepository.save(
                     new Task(
                             taskBody.getTitle(),
