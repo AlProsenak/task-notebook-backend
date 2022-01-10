@@ -18,8 +18,12 @@ import com.springboot.app.service.TaskService;
 @RequestMapping("/api")
 public class TaskController {
 
+    private TaskService taskService;
+
     @Autowired
-    TaskService taskService;
+    TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     // GET
     @GetMapping("/tasks")

@@ -15,8 +15,12 @@ import com.springboot.app.repository.ITaskRepository;
 @Service
 public class TaskService {
 
+    private ITaskRepository taskRepository;
+
     @Autowired
-    ITaskRepository taskRepository;
+    TaskService(ITaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     // GET
     public ResponseEntity<List<Task>> getAllTasks() {
