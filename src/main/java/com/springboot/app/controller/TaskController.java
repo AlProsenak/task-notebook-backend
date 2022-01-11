@@ -14,6 +14,8 @@ import com.springboot.app.model.Task;
 import com.springboot.app.service.TaskService;
 
 
+@CrossOrigin(origins="*")
+//@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class TaskController {

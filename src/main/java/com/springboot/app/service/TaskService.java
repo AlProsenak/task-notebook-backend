@@ -69,6 +69,7 @@ public class TaskService {
     // POST
     public ResponseEntity<Task> createTask(Task taskBody) {
         try {
+            // Not perfect since string with empty space may still be entered
             if (
                     taskBody.getTitle() == null ||
                     taskBody.getTitle().length() == 0 ||

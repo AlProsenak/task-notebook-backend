@@ -27,7 +27,7 @@ public class DataLoader implements ApplicationRunner {
                 new Task(
                     "Create TODO application",
                     "Alex",
-                    LocalDate.of(2021, 1, 17) ,
+                    LocalDate.of(2022, 1, 17) ,
                     "Create task managing notebook application using Spring Boot framework.",
                     false
                 )
@@ -37,7 +37,7 @@ public class DataLoader implements ApplicationRunner {
                 new Task(
                     "Brew some tea",
                     "Kettle",
-                    LocalDate.of(2021, 1, 7) ,
+                    LocalDate.of(2022, 1, 7) ,
                     "Stay hydrated and make sure it is black. You will need it!",
                     true
                 )
@@ -47,7 +47,7 @@ public class DataLoader implements ApplicationRunner {
                 new Task(
                         "Watch some tutorials",
                         "YouTube",
-                        LocalDate.of(2021, 1, 9) ,
+                        LocalDate.of(2022, 1, 9) ,
                         "Playback speed 1.25 is your friend ... ",
                         true
                 )
