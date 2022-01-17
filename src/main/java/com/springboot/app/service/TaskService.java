@@ -1,5 +1,6 @@
 package com.springboot.app.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,8 +84,9 @@ public class TaskService {
                     new Task(
                             taskBody.getTitle(),
                             taskBody.getAccountable(),
-                            taskBody.getDeadline(),
                             taskBody.getDescription(),
+                            taskBody.getDeadline(),
+                            null,
                             false
                     )
             );
@@ -108,9 +110,16 @@ public class TaskService {
 
             _task.setTitle(taskBody.getTitle());
             _task.setAccountable(taskBody.getAccountable());
-            _task.setDeadline(taskBody.getDeadline());
             _task.setDescription(taskBody.getDescription());
+            _task.setDeadline(taskBody.getDeadline());
             _task.setCompleted(taskBody.isCompleted());
+
+            if (_task.isCompleted()) {
+                LocalDate _currentDate = LocalDate.now();
+                _task.setCompletionDate(_currentDate);
+            } else {
+                _task.setCompletionDate(null);
+            }
 
             return new ResponseEntity<>(
                     taskRepository.save(_task),

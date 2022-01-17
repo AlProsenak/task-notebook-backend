@@ -23,12 +23,15 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
+        LocalDate currentDate = LocalDate.now();
+
         taskRepository.save(
                 new Task(
                     "Create TODO application",
                     "Alex",
-                    LocalDate.of(2022, 1, 17) ,
                     "Create task managing notebook application using Spring Boot framework.",
+                    LocalDate.of(2022, 1, 17),
+                    null,
                     false
                 )
         );
@@ -37,8 +40,9 @@ public class DataLoader implements ApplicationRunner {
                 new Task(
                     "Brew some tea",
                     "Kettle",
-                    LocalDate.of(2022, 1, 7) ,
                     "Stay hydrated and make sure it is black. You will need it!",
+                    LocalDate.of(2022, 1, 7),
+                    currentDate,
                     true
                 )
         );
@@ -47,8 +51,9 @@ public class DataLoader implements ApplicationRunner {
                 new Task(
                         "Watch some tutorials",
                         "YouTube",
-                        LocalDate.of(2022, 1, 9) ,
                         "Playback speed 1.25 is your friend ... ",
+                        LocalDate.of(2022, 1, 9),
+                        currentDate,
                         true
                 )
         );

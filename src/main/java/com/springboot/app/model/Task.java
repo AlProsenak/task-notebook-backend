@@ -23,10 +23,12 @@ public class Task {
 
     private String accountable;
 
-    private LocalDate deadline;
-
     @Column(nullable=false)
     private String description;
+
+    private LocalDate deadline;
+
+    private LocalDate completionDate;
 
     private boolean completed;
 
@@ -34,22 +36,26 @@ public class Task {
     public Task(
             String title,
             String accountable,
-            LocalDate deadline,
             String description,
+            LocalDate deadline,
+            LocalDate completionDate,
             boolean completed
     ) {
         this.title = title;
         this.accountable = accountable;
-        this.deadline = deadline;
         this.description = description;
+        this.deadline = deadline;
+        this.completionDate = completionDate;
         this.completed = completed;
     }
 
     // GETTER and SETTER
+
     public long getId() {
         return id;
     }
 
+    // Very likely not needed.
     public void setId(long id) {
         this.id = id;
     }
@@ -70,6 +76,14 @@ public class Task {
         this.accountable = accountable;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -78,12 +92,12 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public String getDescription() {
-        return description;
+    public LocalDate getCompletionDate() {
+        return completionDate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCompletionDate(LocalDate completionDate) {
+        this.completionDate = completionDate;
     }
 
     public boolean isCompleted() {
