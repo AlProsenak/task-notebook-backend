@@ -28,8 +28,10 @@ public class Task {
 
     private LocalDate deadline;
 
+    @Column(name="completion_date")
     private LocalDate completionDate;
 
+    @Column(nullable=false)
     private boolean completed;
 
     // CONSTRUCTOR
