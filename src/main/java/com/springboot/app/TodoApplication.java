@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 		version = "v0.1",
 		license = @License(
 				name = "Aljaž Prosenak - GitHub",
-				url = "https://github.com/ProsenakAljaz/task-notebook-application"
+				url = "https://github.com/ProsenakAljaz/task-notebook-backend"
 		)
 ))
 public class TodoApplication {

@@ -23,6 +23,18 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
+    static boolean RequiredFields(Task taskBody) {
+        if (
+                taskBody.getTitle() == null ||
+                taskBody.getTitle().trim().length() == 0 ||
+                taskBody.getDescription() == null ||
+                taskBody.getDescription().trim().length() == 0
+        ) {
+            return false;
+        };
+        return true;
+    }
+
     // GET
     public ResponseEntity<List<Task>> getAllTasks() {
         try {
@@ -70,13 +82,9 @@ public class TaskService {
     // POST
     public ResponseEntity<Task> createTask(Task taskBody) {
         try {
-            // Not perfect since string with empty space may still be entered
-            if (
-                    taskBody.getTitle() == null ||
-                    taskBody.getTitle().length() == 0 ||
-                    taskBody.getDescription() == null ||
-                    taskBody.getDescription().length() == 0
-            ) {
+            boolean requiredFields = RequiredFields(taskBody);
+
+            if (!requiredFields) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             };
 
@@ -105,6 +113,12 @@ public class TaskService {
             if (task.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+
+            boolean requiredFields = RequiredFields(taskBody);
+
+            if (!requiredFields) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            };
 
             Task _task = task.get();
 
