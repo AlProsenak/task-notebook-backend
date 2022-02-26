@@ -31,7 +31,7 @@ public class TaskService {
                 taskBody.getDescription().trim().length() == 0
         ) {
             return false;
-        };
+        }
         return true;
     }
 
@@ -48,6 +48,7 @@ public class TaskService {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     public ResponseEntity<Task> getTask(long id) {
@@ -62,21 +63,22 @@ public class TaskService {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
-    public ResponseEntity<List<Task>> getAllCompletedTasks() {
+    public ResponseEntity<List<Task>> getAllCompletedTasks(boolean completed) {
         try {
-            List<Task> taskList = taskRepository.findByCompleted(true);
+            List<Task> taskList = taskRepository.findByCompleted(completed);
 
             if (taskList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            else {
+            } else {
                 return new ResponseEntity<>(taskList, HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     // POST
@@ -86,7 +88,7 @@ public class TaskService {
 
             if (!requiredFields) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            };
+            }
 
             Task _task = taskRepository.save(
                     new Task(
@@ -103,6 +105,7 @@ public class TaskService {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     // PUT
@@ -118,7 +121,7 @@ public class TaskService {
 
             if (!requiredFields) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            };
+            }
 
             Task _task = task.get();
 
@@ -142,6 +145,7 @@ public class TaskService {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     // DELETE
@@ -153,6 +157,7 @@ public class TaskService {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     public ResponseEntity<HttpStatus> deleteTask(long id) {
@@ -164,20 +169,26 @@ public class TaskService {
             }
 
             taskRepository.delete(task.get());
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
-    public ResponseEntity<HttpStatus> deleteAllCompletedTasks() {
+    public ResponseEntity<HttpStatus> deleteAllCompletedTasks(
+            boolean completed
+    ) {
         try {
-            List<Task> taskList = taskRepository.findByCompleted(true);
-
+            List<Task> taskList = taskRepository.findByCompleted(completed);
             taskRepository.deleteAll(taskList);
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
+
 }

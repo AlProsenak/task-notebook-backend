@@ -14,12 +14,12 @@ import com.springboot.app.repository.ITaskRepository;
 
 // Creates initial data on application start.
 @Component
-public class DataLoader implements ApplicationRunner {
+public class MockDataLoader implements ApplicationRunner {
 
     private ITaskRepository taskRepository;
 
     @Autowired
-    public DataLoader(ITaskRepository taskRepository) {
+    public MockDataLoader(ITaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
@@ -62,9 +62,9 @@ public class DataLoader implements ApplicationRunner {
                     )
             );
 
-            System.out.println("\nDatabase empty. Added mock data from DataLoader ... ");
+            System.out.println("\nDatabase empty. Added mock data from MockDataLoader ... ");
         } else {
-            System.out.println("\nDatabase populated. Skip adding mock data from DataLoader ... ");
+            System.out.println("\nDatabase populated. Skip adding mock data from MockDataLoader ... ");
         }
     }
 }

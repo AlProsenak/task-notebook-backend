@@ -1,7 +1,6 @@
 package com.springboot.app.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,9 +37,11 @@ public class TaskController {
         return taskService.getTask(id);
     }
 
-    @GetMapping("/tasks/completed")
-    public ResponseEntity<List<Task>> getAllCompletedTasks() {
-        return taskService.getAllCompletedTasks();
+    @GetMapping("/tasks/completed-{completed}")
+    public ResponseEntity<List<Task>> getAllCompletedTasks(
+            @PathVariable("completed") boolean completed
+    ) {
+        return taskService.getAllCompletedTasks(completed);
     }
 
     // POST
@@ -69,8 +70,10 @@ public class TaskController {
         return taskService.deleteTask(id);
     }
 
-    @DeleteMapping("/tasks/completed")
-    public ResponseEntity<HttpStatus> deleteAllCompletedTasks() {
-        return taskService.deleteAllCompletedTasks();
+    @DeleteMapping("/tasks/completed-{completed}")
+    public ResponseEntity<HttpStatus> deleteAllCompletedTasks(
+            @PathVariable("completed")boolean completed
+    ) {
+        return taskService.deleteAllCompletedTasks(completed);
     }
 }
